@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Formulário</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #fff;
+            color: #000;
+            padding: 20px;
+        }
+        
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            display: none;
+        }
+        
+        .bg-maria {
+            background-color: #ff99cc !important;
+        }
+        
+        .bg-numeric {
+            background-color: #ccffcc !important;
+        }
+        
+        .bg-checkbox {
+            background-color: #ffffcc !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Formulário Interativo</h2>
+        <form id="myForm">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome">
+            </div>
+            <div class="form-group">
+                <label for="idade">Idade:</label>
+                <input type="number" class="form-control" id="idade" name="idade">
+            </div>
+            <div class="form-group">
+                <label>Gênero:</label>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="generoM" name="genero" value="Masculino">
+                    <label class="form-check-label" for="generoM">Masculino</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="generoF" name="genero" value="Feminino">
+                    <label class="form-check-label" for="generoF">Feminino</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="generoO" name="genero" value="Outro">
+                    <label class="form-check-label" for="generoO">Outro</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Interesses:</label>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="interesse1" name="interesse[]" value="Esporte">
+                    <label class="form-check-label" for="interesse1">Esporte</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="interesse2" name="interesse[]" value="Música">
+                    <label class="form-check-label" for="interesse2">Música</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="interesse3" name="interesse[]" value="Leitura">
+                    <label class="form-check-label" for="interesse3">Leitura</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="interesse4" name="interesse[]" value="Viagem">
+                    <label class="form-check-label" for="interesse4">Viagem</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="interesse5" name="interesse[]" value="Arte">
+                    <label class="form-check-label" for="interesse5">Arte</label>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="submitForm()">Enviar</button>
+        </form>
+        <div id="result" class="bg-light">
+            <h4>Seleções do Usuário:</h4>
+            <p id="resultText"></p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        function submitForm() {
+            var nome = document.getElementById('nome').value;
+            var idade = document.getElementById('idade').value;
+            var genero = document.querySelector('input[name="genero"]:checked');
+            var interesses = document.querySelectorAll('input[name="interesse[]"]:checked');
+            if (nome === 'Maria' && parseInt(idade) > 10 && interesses.length === 5) {
+                document.body.classList.add('bg-maria');
+            } else if (parseInt(idade) > 10) {
+                document.body.classList.add('bg-numeric');
+            } else if (interesses.length === 5) {
+                document.body.classList.add('bg-checkbox');
+            }
+            var resultText = "Nome: " + nome + "<br>Idade: " + idade + "<br>Gênero: " + (genero ? genero.value : "") + "<br>Interesses: ";
+            interesses.forEach(function (interesse) {
+                resultText += interesse.value + ", ";
+            });
+            resultText = resultText.slice(0, -2);
+            document.getElementById('resultText').innerHTML = resultText;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
